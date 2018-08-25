@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Route::get('admin/register','AdminController@getRegister');
+Route::post('admin/register','AdminController@postRegister');
+
+Route::get('admin/login','AdminController@getLogin');
+Route::post('admin/login','AdminController@postLogin');
