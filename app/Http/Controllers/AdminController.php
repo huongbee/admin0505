@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
+use App\User;
+use Hash;
 
 class AdminController extends Controller
 {
@@ -20,7 +22,7 @@ class AdminController extends Controller
             're_password' => 'required|same:password'
         ],[
            'email.unique'=>'Email đã có người sử dụng',
-            
+
         ]);
 
         if ($validator->fails()) {
@@ -29,7 +31,17 @@ class AdminController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        dd($req->all());
+        $user = new User;
+        $user->username = $req->username;
+        $user->email = $req->email;
+        $user->fullname = $req->fullname;
+        $user->birthdate = date('Y-m-d',strtotime($req->birthdate)) ;
+        $user->gender = $req->gender;
+        $user->address = $req->address;
+        $user->phone = $req->phone;
+        $user->password = Hash::make($req->password);
+        $user->save();
+        return redirect()->route('getLogin')->with('success','Bạn có thể đăng nhập');
     }
 
 

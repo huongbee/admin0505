@@ -4,6 +4,11 @@
 @section('content')
     <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
     <p id="profile-name" class="profile-name-card"></p>
+    @if(Session::has('success'))
+    <div class="alert alert-success">
+        {{Session::get('success')}}
+    </div>
+    @endif
     <form class="form-signin" method="post" action="#">
         <span id="reauth-email" class="reauth-email"></span>
         <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
