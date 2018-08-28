@@ -20,4 +20,7 @@ Route::get('admin/register','AdminController@getRegister');
 Route::post('admin/register','AdminController@postRegister')->name('postRegister');
 
 Route::get('admin/login','AdminController@getLogin')->name('getLogin');
-Route::post('admin/login','AdminController@postLogin');
+Route::post('admin/login','AdminController@postLogin')->name('postLogin');
+
+Route::get('admin','AdminController@index')->name('home');
+Route::get('admin/logout','AdminController@logout')->name('logout');

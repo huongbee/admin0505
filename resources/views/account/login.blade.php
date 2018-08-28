@@ -9,9 +9,16 @@
         {{Session::get('success')}}
     </div>
     @endif
-    <form class="form-signin" method="post" action="#">
+    @if(Session::has('error'))
+    <div class="alert alert-danger">
+        {{Session::get('error')}}
+    </div>
+    @endif
+    <form class="form-signin" method="post" action="{{route('postLogin')}}">
+        @csrf
         <span id="reauth-email" class="reauth-email"></span>
-        <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        <br>
         <input type="password" name="inputPassword" class="form-control" placeholder="Password" required>
         
         <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="login">Sign in</button>

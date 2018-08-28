@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\User;
 use Hash;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -41,19 +42,46 @@ class AdminController extends Controller
         $user->phone = $req->phone;
         $user->password = Hash::make($req->password);
         $user->save();
-        return redirect()->route('getLogin')->with('success','Bạn có thể đăng nhập');
+        return redirect()
+                ->route('getLogin')
+                ->with('success','Bạn có thể đăng nhập');
     }
-
-
-
-
-
 
     function getLogin(){
         return view('account.login');
     }
 
-    function postLogin(){
-        
+    function postLogin(Request $req){
+        $arr = [
+            'username'=>$req->username,
+            'password'=>$req->inputPassword
+        ];
+        if(Auth::attempt($arr)){
+            return redirect()
+                ->route('home');
+        }
+        else{
+            return redirect()
+                ->route('getLogin')
+                ->with('error','Sai thông tin đăng nhập');
+        }
+    }
+
+    function index(){
+        if(Auth::check()){
+            // dd(Auth::user());
+            return view('pages.home');
+        }
+        else{
+            echo "Chua dang nhap";
+        }
+        //return view('pages.home');
+    }
+
+    function logout(){
+        Auth::logout();
+        return redirect()
+                ->route('getLogin')
+                ->with('success','Bạn đã đăng xuất');
     }
 }
