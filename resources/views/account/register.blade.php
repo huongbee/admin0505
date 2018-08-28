@@ -8,10 +8,18 @@
     }
 </style>
 <h2 class="text-center">Register</h2>
-<form class="form-signin" method="post" action="#">
-    <input type="text" name="fullname" class="form-control" placeholder="Fullname" required autofocus>
+@if($errors->any())
+    <div class="alert alert-danger">
+        @foreach($errors->all() as $err)
+            <li>{{$err}}</li>
+        @endforeach
+    </div>
+@endif
+<form class="form-signin" method="post" action="{{route('postRegister')}}">
+    @csrf
+    <input type="text" name="fullname" class="form-control" placeholder="Fullname" required autofocus value="{{old('fullname')}}">
 
-    <input type="email" name="email" class="form-control" placeholder="Email address" required>
+    <input type="email" name="email" class="form-control" placeholder="Email address" required value="{{old('email')}}">
 
     <input type="text" name="username" class="form-control" placeholder="Username" required>
 
@@ -19,7 +27,8 @@
     <div class="form-group">
         <div class="col-sm-3 col-sm-offset-3">
             <label>
-                <input type="radio" name="gender" required value="nam"> Male</label>
+                <input type="radio" name="gender" required value="nam"> Male
+            </label>
         </div>
         <div class="col-sm-3">
             <label>
