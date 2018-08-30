@@ -7,6 +7,7 @@ use Validator;
 use App\User;
 use Hash;
 use Auth;
+use App\Products;
 
 class AdminController extends Controller
 {
@@ -71,9 +72,10 @@ class AdminController extends Controller
         return view('pages.home');
     }
 
-    function getListProduct(){
-        echo "view";
-        // return view('pages.listproduct');
+    function getListProduct($idtype){
+        $products = Products::where('id_type',$idtype)->get();
+        // dd($products);
+        return view('pages.listproduct',compact('products'));
     }
 
     function logout(){
