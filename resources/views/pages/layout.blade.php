@@ -284,7 +284,7 @@
       <!--header end-->
       <!--sidebar start-->
       <aside>
-          <div id="sidebar"  class="nav-collapse ">
+          <div id="sidebar"  class="nav-collapse " style="z-index:1">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
                   <li>
@@ -296,14 +296,22 @@
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class=" fa fa-envelope"></i>
-                          <span>Mail</span>
+                          <i class="fa fa-list"></i>
+                          <span>Loại sản phẩm</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="inbox.html">Inbox</a></li>
-                          <li><a  href="inbox_details.html">Inbox Details</a></li>
+                          @foreach($menu as $category)
+                            <li><a  href="{{route('list-product',$category->id)}}">{{$category->name}}</a></li>
+                          @endforeach
                       </ul>
                   </li>
+                  <li>
+                    <a href="google_maps.html" >
+                        <i class="fa fa-plus"></i>
+                        <span>Thêm sản phẩm</span>
+                    </a>
+                </li>
+
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class=" fa fa-bar-chart-o"></i>
@@ -326,13 +334,7 @@
                           <li><a  href="product_details.html">Details View</a></li>
                       </ul>
                   </li>
-                  <li>
-                      <a href="google_maps.html" >
-                          <i class="fa fa-map-marker"></i>
-                          <span>Google Maps </span>
-                      </a>
-                  </li>
-
+                  
                   <!--multi level menu start-->
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -375,7 +377,7 @@
       </section>
       <!--main content end-->
       <!--footer start-->
-      <footer class="site-footer">
+      <footer class="site-footer" style="position:fixed; bottom:0px; width:100%">
           <div class="text-center">
               2017 &copy; Hương Hương.
               <a href="#" class="go-top">

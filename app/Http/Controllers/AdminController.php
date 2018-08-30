@@ -68,14 +68,12 @@ class AdminController extends Controller
     }
 
     function index(){
-        if(Auth::check()){
-            // dd(Auth::user());
-            return view('pages.home');
-        }
-        else{
-            echo "Chua dang nhap";
-        }
-        //return view('pages.home');
+        return view('pages.home');
+    }
+
+    function getListProduct(){
+        echo "view";
+        // return view('pages.listproduct');
     }
 
     function logout(){

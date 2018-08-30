@@ -22,5 +22,20 @@ Route::post('admin/register','AdminController@postRegister')->name('postRegister
 Route::get('admin/login','AdminController@getLogin')->name('getLogin');
 Route::post('admin/login','AdminController@postLogin')->name('postLogin');
 
-Route::get('admin','AdminController@index')->name('home');
-Route::get('admin/logout','AdminController@logout')->name('logout');
+Route::group(['middleware'=>'checklogin','prefix'=>'admin'],function(){
+
+    // admin/
+    Route::get('/','AdminController@index')->name('home');
+    
+    // admin/list-product
+    Route::get('list-product/{idtype}','AdminController@getListProduct')->name('list-product');
+    
+
+
+
+
+
+    // admin/logout
+    Route::get('logout','AdminController@logout')->name('logout');
+
+});
