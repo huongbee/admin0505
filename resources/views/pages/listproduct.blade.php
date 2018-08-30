@@ -1,7 +1,7 @@
 @extends('pages.layout')
 @section('content')
 <div class="panel panel-default">
-    <div class="panel-heading"><b>Danh sách sản phẩm loại ....</b>
+<div class="panel-heading"><b>Danh sách sản phẩm loại <i>{{$type->name}}</i></b>
     </div>
     <div class="panel-body">
         <table class="table table-bordered">
@@ -44,6 +44,8 @@
 
             </tbody>
           </table>
+
+          {{$products->links()}}
     </div>
 </div>
 @endsection
