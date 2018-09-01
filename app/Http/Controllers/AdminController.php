@@ -78,6 +78,14 @@ class AdminController extends Controller
         $type = Categories::where('id',$idtype)->first();
         return view('pages.listproduct',compact('products','type'));
     }
+    function getEditProduct($id){
+        $product = Products::find($id);
+        if($product){
+            return view('pages.edit-product',compact('product'));
+        }
+        return redirect()->back()->with('error','Không tìm thấy sản phẩm');
+    }
+
 
     function logout(){
         Auth::logout();

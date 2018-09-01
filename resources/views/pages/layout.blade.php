@@ -368,10 +368,11 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
+            @include('pages.messages')
             <div class="panel panel-body">
-              <section class="content">
-                  @yield('content')
-              </section>
+                <section class="content">
+                    @yield('content')
+                </section>
             </div>
           </section>
       </section>

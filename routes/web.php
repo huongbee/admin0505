@@ -29,6 +29,7 @@ Route::group(['middleware'=>'checklogin','prefix'=>'admin'],function(){
     
     // admin/list-product
     Route::get('list-product/{idtype}','AdminController@getListProduct')->name('list-product');
+    Route::get('edit-product/{id}','AdminController@getEditProduct')->name('edit-product');
     
 
 
