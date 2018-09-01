@@ -9,6 +9,8 @@ use Hash;
 use Auth;
 use App\Products;
 use App\Categories;
+use App\PageUrl;
+use App\Helpers\Helpers;
 
 class AdminController extends Controller
 {
@@ -105,9 +107,14 @@ class AdminController extends Controller
                 $product->image = $newName;
             }
             $product->update_at = date('Y-m-d');
-
             $product->save();
-            //update url
+
+            $url = PageUrl::find($product->id_url);
+            if(!$url){
+                return redirect()->back()->with('error','Error');
+            }
+            $url->url = (new Helpers)->changeTitle($product->name);
+            $url->save();
 
             return redirect()->route('list-product',$product->id_type)->with('success','Update successfuly');
 
