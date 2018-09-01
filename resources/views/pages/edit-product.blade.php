@@ -1,5 +1,6 @@
 @extends('pages.layout')
 @section('content')
+<script src="ckeditor/ckeditor.js"></script>
 <div class="panel panel-default">
     <div class="panel-heading">
         <b>Cập nhật thông tin sản phẩm <i>{{$product->name}}</i></b>
@@ -50,15 +51,18 @@
             <div class="col-sm-6">
                     <div class="form-group">
                         <label>Detail:</label>
-                        <textarea class="form-control" name="detail" rows="8">{{$product->detail}}</textarea>
+                        <textarea class="form-control" name="detail" rows="8" id="detail">{{$product->detail}}</textarea>
                     </div>
                 <div class="form-group">
                     <label>Promotion:</label>
-                    <textarea class="form-control" id="name" name="promotion" rows="8">{{$product->promotion}}</textarea>
+                    <textarea class="form-control" name="promotion" rows="8" id="promotion">{{$product->promotion}}</textarea>
                 </div>
             </div>
         </form>
-
     </div>
 </div>
+<script>
+    CKEDITOR.replace('detail')
+    CKEDITOR.replace('promotion')
+</script>
 @endsection
