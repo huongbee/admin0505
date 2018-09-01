@@ -85,6 +85,30 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('error','Không tìm thấy sản phẩm');
     }
+    function postEditProduct(Request $req){
+        $product = Products::find($req->id);
+        if($product){
+            $product->name = $req->name;
+            $product->id_type = $req->type;
+            $product->price = $req->price;
+            $product->promotion_price = $req->promotion_price;
+            $product->detail = $req->detail;
+            $product->status = isset($req->status) && $req->status == 1 ? 1:0;
+            $product->new = isset($req->new) && $req->new == 1 ? 1:0;
+            if($req->hasFile('image')){
+                $image = $req->file('image');
+                $newName = str_random(10).'-'.$image->getClientOriginalName();
+                $image->move('admin-master/img/products/',$newName);
+                $product->image = $newName;
+            }
+            $product->update_at = date('Y-m-d');
+
+            $product->save();
+            //update url
+            
+        }
+        return redirect()->back()->with('error','Không tìm thấy sản phẩm');
+    }
 
 
     function logout(){

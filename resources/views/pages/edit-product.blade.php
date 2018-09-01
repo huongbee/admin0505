@@ -6,7 +6,7 @@
         <b>Cập nhật thông tin sản phẩm <i>{{$product->name}}</i></b>
     </div>
     <div class="panel-body">
-        <form class="" action="">
+        <form method="POST" action="{{route('post-edit-product',$product->id)}}" enctype="multipart/form-data">
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Name:</label>
@@ -31,12 +31,12 @@
 
                 <div class="form-group">
                     <div class="checkbox">
-                    <label><input type="checkbox" name="status" @if($product->status==1) checked @endif> Special Product</label>
+                    <label><input type="checkbox" name="status" @if($product->status==1) checked @endif value="1"> Special Product</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
-                        <label><input type="checkbox" name="new"  @if($product->new==1) checked @endif> New Product</label>
+                        <label><input type="checkbox" name="new"  @if($product->new==1) checked @endif value="1"> New Product</label>
                     </div>
                 </div>
                 <div class="form-group">
