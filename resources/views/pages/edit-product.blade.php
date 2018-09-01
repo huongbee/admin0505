@@ -7,6 +7,7 @@
     </div>
     <div class="panel-body">
         <form method="POST" action="{{route('post-edit-product',$product->id)}}" enctype="multipart/form-data">
+            @csrf
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Name:</label>

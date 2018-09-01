@@ -86,6 +86,7 @@ class AdminController extends Controller
         return redirect()->back()->with('error','Không tìm thấy sản phẩm');
     }
     function postEditProduct(Request $req){
+        //dd($req->all());        
         $product = Products::find($req->id);
         if($product){
             $product->name = $req->name;
@@ -93,19 +94,23 @@ class AdminController extends Controller
             $product->price = $req->price;
             $product->promotion_price = $req->promotion_price;
             $product->detail = $req->detail;
-            $product->status = isset($req->status) && $req->status == 1 ? 1:0;
+            $product->status = isset($req->status) && $req->status == 1?1:0;
             $product->new = isset($req->new) && $req->new == 1 ? 1:0;
+            $product->promotion = $req->promotion;
             if($req->hasFile('image')){
                 $image = $req->file('image');
                 $newName = str_random(10).'-'.$image->getClientOriginalName();
                 $image->move('admin-master/img/products/',$newName);
+                //unlink('admin-master/img/products/'.$product->image);
                 $product->image = $newName;
             }
             $product->update_at = date('Y-m-d');
 
             $product->save();
             //update url
-            
+
+            return redirect()->route('list-product',$product->id_type)->with('success','Update successfuly');
+
         }
         return redirect()->back()->with('error','Không tìm thấy sản phẩm');
     }

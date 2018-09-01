@@ -35,7 +35,7 @@
                         @endif
                     </td>
                     <td style="width:80px">
-                        <a href=""><i class="fa fa-edit fa-2x"></i> Sửa </a>
+                        <a href="{{route('edit-product',$p->id)}}"><i class="fa fa-edit fa-2x"></i> Sửa </a>
                         <br>
                         <a href=""><i class="fa fa-trash-o fa-2x"></i> Xoá</a>
                     </td>
