@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('pages.layout',function($view){
+        View::composer(['pages.layout','pages.edit-product'],function($view){
             $menu = Categories::get();
             $view->with('menu',$menu);
         });

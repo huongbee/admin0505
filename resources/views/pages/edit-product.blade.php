@@ -14,9 +14,9 @@
                 <div class="form-group">
                     <label>Loại:</label>
                     <select name="type" class="form-control">
-                        <option value="">ABC</option>
-                        <option value="">ABC</option>
-                        <option value="">ABC</option>
+                        @foreach($menu as $m)
+                        <option value="{{$m->id}}" @if($product->id_type==$m->id) selected @endif>{{$m->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
@@ -30,12 +30,12 @@
 
                 <div class="form-group">
                     <div class="checkbox">
-                        <label><input type="checkbox" name="status"> Special Product</label>
+                    <label><input type="checkbox" name="status" @if($product->status==1) checked @endif> Special Product</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
-                        <label><input type="checkbox" name="new"> New Product</label>
+                        <label><input type="checkbox" name="new"  @if($product->new==1) checked @endif> New Product</label>
                     </div>
                 </div>
                 <div class="form-group">
