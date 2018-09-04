@@ -98,6 +98,7 @@ class AdminController extends Controller
             $product->detail = $req->detail;
             $product->status = isset($req->status) && $req->status == 1?1:0;
             $product->new = isset($req->new) && $req->new == 1 ? 1:0;
+            $product->deleted = isset($req->deleted) && $req->deleted == 1 ? 1:0;
             $product->promotion = $req->promotion;
             if($req->hasFile('image')){
                 $image = $req->file('image');
@@ -164,8 +165,16 @@ class AdminController extends Controller
     }
 
     function postDeleteProduct(Request $req){
-        // echo $req->id;
-        echo $req->_token;
+        $id = $req->id;
+        $product = Products::find($id);
+        if($product){
+            $product->deleted = 1; //da xoa
+            $product->save();
+            return response(['result'=>true]);            
+        }
+        else{
+            return response(['result'=>false]);
+        }
     }   
 
     function logout(){

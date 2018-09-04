@@ -41,6 +41,11 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="new"  @if($product->deleted==1) checked @endif value="1"> Deleted</label>
+                    </div>
+                </div>
+                <div class="form-group">
                     <img src="admin-master/img/products/{{$product->image}}" height="100px">
                     <br><br>
                     <input type="file" name="image">

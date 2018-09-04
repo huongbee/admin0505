@@ -13,6 +13,7 @@
                 <th>Đơn giá</th>
                 <th>Hình</th>
                 <th>Trạng thái</th>
+                <th>Đã xoá</th>
                 <th>Tuỳ chọn</th>
               </tr>
             </thead>
@@ -34,10 +35,17 @@
                         <span style="color:red">Sản phẩm đặc biệt</span>
                         @endif
                     </td>
+                    <td style="color:red" class="deleted-{{$p->id}}">
+                        @if($p->deleted==1)
+                        Đã xoá
+                        @endif
+                    </td>
                     <td style="width:80px">
                         <a href="{{route('edit-product',$p->id)}}"><i class="fa fa-edit fa-2x"></i> Sửa </a>
                         <br>
-                    <a href="" data-toggle="modal" data-target="#deleteProduct" class="btnDelete" data-id="{{$p->id}}" title="{{$p->name}}"><i class="fa fa-trash-o fa-2x"></i> Xoá</a>
+                    @if($p->deleted==0)
+                    <a href="" data-toggle="modal" data-target="#deleteProduct" class="btnDelete" id="btnDelete-{{$p->id}}" data-id="{{$p->id}}" title="{{$p->name}}"><i class="fa fa-trash-o fa-2x"></i> Xoá</a>
+                    @endif
                     </td>
                 </tr>
               @endforeach
@@ -62,6 +70,20 @@
       </div>
     </div>
 </div>
+
+<div id="message" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-body">
+            <p id="message-box">...</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+        </div>
+        </div>
+    </div>
+</div>
 <script>
 $(document).ready(function(){
     $('.btnDelete').click(function(){
@@ -78,7 +100,15 @@ $(document).ready(function(){
                 },
                 type:"POST",
                 success:function(res){
-                    console.log(res)
+                    $('#deleteProduct').modal('hide')
+                    if(res.result == true){
+                        $('#message-box').html('Xoá thành công')
+                        $('.deleted-'+idSP).html('Đã xoá')
+                        $('#btnDelete-'+idSP).remove()
+                    }
+                    else $('#message-box').html('Xoá thất bại')
+
+                    $('#message').modal('show')
                 },
                 error:function(){
                     alert('Error!')
