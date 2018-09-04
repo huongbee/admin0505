@@ -37,7 +37,7 @@
                     <td style="width:80px">
                         <a href="{{route('edit-product',$p->id)}}"><i class="fa fa-edit fa-2x"></i> Sửa </a>
                         <br>
-                        <a href=""><i class="fa fa-trash-o fa-2x"></i> Xoá</a>
+                        <a href=""  data-toggle="modal" data-target="#deleteProduct"><i class="fa fa-trash-o fa-2x"></i> Xoá</a>
                     </td>
                 </tr>
               @endforeach
@@ -48,4 +48,18 @@
           {{$products->links()}}
     </div>
 </div>
+<div id="deleteProduct" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>Xoá sản phẩm <b>....</b></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">OK</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
