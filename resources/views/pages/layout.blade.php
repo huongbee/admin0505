@@ -306,7 +306,7 @@
                       </ul>
                   </li>
                   <li>
-                    <a href="google_maps.html" >
+                  <a href="{{route('add-product')}}" >
                         <i class="fa fa-plus"></i>
                         <span>Thêm sản phẩm</span>
                     </a>

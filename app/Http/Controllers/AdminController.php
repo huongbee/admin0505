@@ -76,7 +76,7 @@ class AdminController extends Controller
     }
 
     function getListProduct($idtype){
-        $products = Products::where('id_type',$idtype)->paginate(5);
+        $products = Products::where('id_type',$idtype)->orderBy('id','DESC')->paginate(5);
         $type = Categories::where('id',$idtype)->first();
         return view('pages.listproduct',compact('products','type'));
     }
@@ -121,7 +121,47 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('error','Không tìm thấy sản phẩm');
     }
+    function getAddProduct(){
+        return view('pages.add-product');
+    }
+    function postAddProduct(Request $req){
+        //validate
 
+        //add url 
+        $url = new PageUrl;
+        $url->url = (new Helpers)->changeTitle($req->name);
+        $url->save();
+        
+        //add product
+        try{
+            $product = new Products;
+            $product->name = $req->name;
+            $product->id_type = $req->type;
+            $product->id_url = $url->id;
+            $product->price = $req->price;
+            $product->promotion_price = $req->promotion_price;
+            $product->detail = $req->detail;
+            $product->status = isset($req->status) && $req->status == 1?1:0;
+            $product->new = isset($req->new) && $req->new == 1 ? 1:0;
+            $product->promotion = $req->promotion;
+
+            $image = $req->file('image');
+            $newName = str_random(10).'-'.$image->getClientOriginalName();
+            $image->move('admin-master/img/products/',$newName);
+            $product->image = $newName;
+            $product->update_at = date('Y-m-d');
+            $product->save();
+            if(!$product){
+                $url->delete();
+                return redirect()->route('add-product');
+            }
+        }
+        catch(\Throwable $e){
+            $url->delete();
+            return redirect()->route('add-product');
+        }
+        return redirect()->route('list-product',$product->id_type)->with('success','Insert successfuly');
+    }
 
     function logout(){
         Auth::logout();

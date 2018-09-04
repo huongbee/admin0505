@@ -29,8 +29,12 @@ Route::group(['middleware'=>'checklogin','prefix'=>'admin'],function(){
     
     // admin/list-product
     Route::get('list-product/{idtype}','AdminController@getListProduct')->name('list-product');
+
     Route::get('edit-product/{id}','AdminController@getEditProduct')->name('edit-product');
     Route::post('edit-product/{id}','AdminController@postEditProduct')->name('post-edit-product');
+
+    Route::get('add-product','AdminController@getAddProduct')->name('add-product');
+    Route::post('add-product','AdminController@postAddProduct')->name('post-add-product');
     
 
 
