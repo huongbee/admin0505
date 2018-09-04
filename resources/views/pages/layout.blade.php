@@ -33,6 +33,8 @@
       <script src="admin-master/js/html5shiv.js"></script>
       <script src="admin-master/js/respond.min.js"></script>
     <![endif]-->
+
+    <script src="admin-master/js/jquery.js"></script>
   </head>
 
   <body>
@@ -390,7 +392,6 @@
   </section>
 
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="admin-master/js/jquery.js"></script>
     <script src="admin-master/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="admin-master/js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="admin-master/js/jquery.scrollTo.min.js"></script>

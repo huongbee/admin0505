@@ -35,6 +35,8 @@ Route::group(['middleware'=>'checklogin','prefix'=>'admin'],function(){
 
     Route::get('add-product','AdminController@getAddProduct')->name('add-product');
     Route::post('add-product','AdminController@postAddProduct')->name('post-add-product');
+
+    Route::post('delete-product','AdminController@postDeleteProduct')->name('post-delete-product');
     
 
 

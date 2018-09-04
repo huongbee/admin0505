@@ -21,7 +21,7 @@
                 @foreach($products as $p)
                 <tr>
                     <td>{{++$i}}</td>
-                    <td>{{$p->name}}</td>
+                    <td id="name-{{$p->id}}">{{$p->name}}</td>
                     <td>{!!$p->detail!!}</td>
                     <td>{{number_format($p->price)}}</td>
                     <td>
@@ -37,7 +37,7 @@
                     <td style="width:80px">
                         <a href="{{route('edit-product',$p->id)}}"><i class="fa fa-edit fa-2x"></i> Sửa </a>
                         <br>
-                        <a href=""  data-toggle="modal" data-target="#deleteProduct"><i class="fa fa-trash-o fa-2x"></i> Xoá</a>
+                    <a href="" data-toggle="modal" data-target="#deleteProduct" class="btnDelete" data-id="{{$p->id}}" title="{{$p->name}}"><i class="fa fa-trash-o fa-2x"></i> Xoá</a>
                     </td>
                 </tr>
               @endforeach
@@ -53,13 +53,39 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body">
-          <p>Xoá sản phẩm <b>....</b></p>
+          <p>Xoá sản phẩm <b id="name-sp">...</b> ?</p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary">OK</button>
+            <button type="button" class="btn btn-primary" id="btnOk">OK</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>
-  </div>
+</div>
+<script>
+$(document).ready(function(){
+    $('.btnDelete').click(function(){
+        var idSP = $(this).attr('data-id')
+        var name = $('#name-'+idSP).text()
+        // var name = $(this).attr('title')
+        $('#name-sp').html(name)
+        $('#btnOk').click(function(){
+            $.ajax({
+                url:"{{route('post-delete-product')}}",
+                data:{
+                    id:idSP,
+                    _token:"{{csrf_token()}}"
+                },
+                type:"POST",
+                success:function(res){
+                    console.log(res)
+                },
+                error:function(){
+                    alert('Error!')
+                }
+            })
+        })
+    })
+})
+</script>
 @endsection

@@ -163,6 +163,11 @@ class AdminController extends Controller
         return redirect()->route('list-product',$product->id_type)->with('success','Insert successfuly');
     }
 
+    function postDeleteProduct(Request $req){
+        // echo $req->id;
+        echo $req->_token;
+    }   
+
     function logout(){
         Auth::logout();
         return redirect()
