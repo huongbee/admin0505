@@ -17,7 +17,14 @@ class CheckAdminLogin
     public function handle($request, Closure $next)
     {
         if(Auth::check()){
-            return $next($request);
+            $user = Auth::user();
+            if(!empty($user->roles->toArray())) 
+                return $next($request);
+            else{
+                Auth::logout();
+                return redirect()->route('getLogin')
+                ->with('error','Bạn không có quyền truy cập');
+            }
         }
         return redirect()->route('getLogin')
                 ->with('error','Vui lòng đăng nhập');

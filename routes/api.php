@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/user','AdminController@testApi');
+    
+
+Route::get('/user2','AdminController@test02');
+    
+

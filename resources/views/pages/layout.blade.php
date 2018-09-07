@@ -308,10 +308,43 @@
                       </ul>
                   </li>
                   <li>
-                  <a href="{{route('add-product')}}" >
-                        <i class="fa fa-plus"></i>
-                        <span>Thêm sản phẩm</span>
+                    @foreach(Auth::user()->roles as $role)
+                    @if($role->role == 'admin' || $role=='manager')
+                        <a href="{{route('add-product')}}" >
+                            <i class="fa fa-plus"></i>
+                            <span>Thêm sản phẩm</span>
+                        </a>
+                    @endif
+                    @endforeach
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-list"></i>
+                        <span>Danh sách loại </span>
                     </a>
+                    <ul class="sub">
+                          <li><a  href="">Loại 1</a></li>
+                          <li><a  href="">Loại 2</a></li>
+                    </ul>
+                </li>
+                <li>
+                <a href="" >
+                      <i class="fa fa-plus"></i>
+                      <span>Thêm loại sản phẩm</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-list"></i>
+                        <span>Quản lý đơn hàng</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{route('getbill',0)}}">Đơn hàng chưa xác nhận</a></li>
+                        <li><a href="{{route('getbill',1)}}">Đơn hàng đã xác nhận</a></li>
+                        <li><a href="{{route('getbill',2)}}">Đơn hàng đã hoàn tất</a></li>
+                        <li><a href="{{route('getbill',3)}}">Đơn hàng bị huỷ</a></li>
+                    </ul>
                 </li>
 
                   <li class="sub-menu">

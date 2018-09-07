@@ -33,12 +33,14 @@ Route::group(['middleware'=>'checklogin','prefix'=>'admin'],function(){
     Route::get('edit-product/{id}','AdminController@getEditProduct')->name('edit-product');
     Route::post('edit-product/{id}','AdminController@postEditProduct')->name('post-edit-product');
 
-    Route::get('add-product','AdminController@getAddProduct')->name('add-product');
+    Route::get('add-product','AdminController@getAddProduct')->name('add-product')->middleware('checkAdminlogin');
     Route::post('add-product','AdminController@postAddProduct')->name('post-add-product');
 
     Route::post('delete-product','AdminController@postDeleteProduct')->name('post-delete-product');
-    
 
+    Route::get('bill-{status}','AdminController@getBills')->name('getbill');
+
+    
 
 
 

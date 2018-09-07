@@ -11,6 +11,8 @@ use App\Products;
 use App\Categories;
 use App\PageUrl;
 use App\Helpers\Helpers;
+use App\Bills;
+use App\BillDetail;
 
 class AdminController extends Controller
 {
@@ -123,6 +125,7 @@ class AdminController extends Controller
         return redirect()->back()->with('error','Không tìm thấy sản phẩm');
     }
     function getAddProduct(){
+
         return view('pages.add-product');
     }
     function postAddProduct(Request $req){
@@ -177,10 +180,41 @@ class AdminController extends Controller
         }
     }   
 
+    function getBills($status){
+        $bills = Bills::with('customer','billDetail','billDetail.product')
+                ->where('status',$status)
+                ->orderBy('id','asc')
+                ->get();
+        return view('pages.bills',compact('bills','status'));
+    }
+
+
+
     function logout(){
         Auth::logout();
         return redirect()
                 ->route('getLogin')
                 ->with('success','Bạn đã đăng xuất');
+    }
+
+    function testApi(){
+        // $bills = Bills::with('customer','billDetail','billDetail.product')
+        // ->where('status',1)
+        // ->orderBy('id','asc')
+        // ->get();
+        $a = [1.4,13];
+        return $a;
+    }
+
+    function test02(){
+        // $b = file_get_contents('http://localhost:8000/api/user');
+        // dd($b);
+        $ch = curl_init(); 
+
+        curl_setopt($ch, CURLOPT_URL, "http://localhost:8000/api/user"); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        $output = curl_exec($ch); 
+        print_r($output);
+        curl_close($ch);
     }
 }
